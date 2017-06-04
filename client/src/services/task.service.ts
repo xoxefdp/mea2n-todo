@@ -16,6 +16,12 @@ export class TaskService {
     .map(res => res.json());
   }
 
+  getTask(id) {
+    return this.http.get(
+      this.endpoint + '/task/' + id)
+    .map(res => res.json());
+  }
+
   addTask(newTask) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
