@@ -22,7 +22,7 @@ app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
 // Set Static Folder
-app.use(express.static(path.join(__dirname, 'client')));
+app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 
 // Body Parser MiddleWare (MW)
 app.use(bodyParser.json());
