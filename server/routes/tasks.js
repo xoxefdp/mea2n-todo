@@ -1,7 +1,9 @@
+// Dependencies require
 var express = require('express');
+var mongojs = require('mongojs');
+
 var router = express.Router();
 
-var mongojs = require('mongojs');
 var dbname = 'tasklist';
 var db = mongojs('mongodb://localhost:27017/' + dbname, ['tasks']);
 
