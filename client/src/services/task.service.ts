@@ -38,7 +38,7 @@ export class TaskService {
     .map(res => res.json());
   }
 
-  updateStatus(task) {
+  updateTask(task) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.put(

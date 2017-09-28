@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { TaskService } from './../../../services/task.service';
 import { Task } from './../../../models/task';
 
@@ -46,13 +47,13 @@ export class TasksComponent {
       });
   }
 
-  updateStatus(task) {
+  updateTask(task) {
     const _task = {
       _id: task._id,
       title: task.title,
       isDone: !task.isDone
     }
-    this.taskService.updateStatus(_task)
+    this.taskService.updateTask(_task)
       .subscribe(data => {
         task.isDone = !task.isDone;
       });

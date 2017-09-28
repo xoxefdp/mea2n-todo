@@ -1,9 +1,9 @@
 <form class="well" (submit)="addTask($event)">
 	<div class="form-group">
-		<input type="text" [(ngModel)]="title" name="title" class="form-control" placeholder="Add Task...">
+		<input type="text" [(ngModel)]="title" name="title" class="form-control no-round-border" placeholder="Add Task...">
 	</div>
 </form>
-<table class="table table-striped">
+<table class="table table-bordered table-striped table-hover" *ngIf="tasks?.length != 0">
   <thead>
     <tr>
       <th>DONE</th>
@@ -18,7 +18,7 @@
 			</td>
       <td>{{task.title}}</td>
       <td>
-				<input type="button" (click)="deleteTask(task._id)" value="Delete" class="btn btn-danger">
+				<input type="button" (click)="deleteTask(task._id)" value="Delete" class="btn btn-danger no-round-border">
 			</td>
     </tr>
   </tbody>

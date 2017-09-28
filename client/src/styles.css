@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+/* app css stylesheet */
+body {
+	margin: 2.5%;
+	font-family: monospace;
+	font-size: 1em;
+}
+
+.no-round-border {
+	border-radius: 0;
+}
+
+.badge {
+	padding: .25em;
+	border-radius: 0;
+}
+
+.btn .badge {
+	top: 0;
+}
+
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+tr > th, tr > td {
+	text-align: center;
+}
