@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var tasks = require('./routes/tasks');
 
-var port = 4000;
+var port = 3000;
 var app = express();
 
 // cors override // NOT FOR PRODUCTION PURPOSES
