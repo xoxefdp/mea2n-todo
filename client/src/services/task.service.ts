@@ -16,7 +16,7 @@ export class TaskService {
     .map(res => res.json());
   }
 
-  getTask(id) {
+  getTask(id: number) {
     return this.http.get(
       this.endpoint + '/task/' + id)
     .map(res => res.json());
@@ -32,7 +32,7 @@ export class TaskService {
     .map(res => res.json());
   }
 
-  deleteTask(id) {
+  deleteTask(id: number) {
     return this.http.delete(
       this.endpoint + '/task/' + id)
     .map(res => res.json());

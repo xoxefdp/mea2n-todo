@@ -1,2 +1,9 @@
-<h2 class="text-center">{{title}}</h2><input type="hidden" [(ngModel)]="title">
+<table class="table table-bordered">
+  <thead class="thead-inverse">
+  	<tr>
+      <th>{{title}}</th>
+			<input type="hidden" [(ngModel)]="title">
+    </tr>
+  </thead>
+</table>
 <app-tasks></app-tasks>
