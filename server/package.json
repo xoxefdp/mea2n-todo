@@ -11,9 +11,12 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "core-js": "^2.5.1",
+    "cors": "^2.8.4",
     "ejs": "^2.5.7",
-    "express": "^4.16.1",
+    "express": "^4.16.2",
+    "express-jwt": "^5.3.0",
     "mongojs": "^2.4.1",
+    "mongoose": "^4.12.2",
     "reflect-metadata": "^0.1.10",
     "zone.js": "^0.8.18"
   }
