@@ -6,9 +6,29 @@ var mongojs = require('mongojs');
 var connection = 'mongodb://localhost:27017/tasklist';
 var db = mongojs(connection, ['tasks']);
 
+
+var mongoose = require('mongoose');
+var Task = require('../models/tasks').Task;
+
+/* ************************* MONGOOSE ************************* */
+// connection
+var collection = 'tasks';
+var uri = 'mongodb://localhost/tasklist';
+mongoose.connect(uri, { useMongoClient:true });
+
+var connection = mongoose.connection;
+
+connection.on('error', console.error.bind(console, '*** Connection to MongoDB returned error: '));
+
+connection.once('open', function(){
+	console.log('*** Connected to MongoDB on ' + uri + '/'+collection+' ***');
+});
+
+mongoose.Promise = global.Promise;
+/* ************************************************************ */
+
 // routes
 var router = express.Router();
-
 router.get('/', index);
 router.get('/tasks', getTasks);
 router.get('/task/:id', getTask);
@@ -26,7 +46,8 @@ function index(request, response, next) {
 
 // Get All Tasks
 function getTasks(request, response, next) {
-	db.tasks.find( function(error, tasks) {
+
+	Task.find({}, function(error, tasks) {
 		if (error) {
 			response.send(error);
 			console.log(error);
@@ -50,12 +71,15 @@ function getTask(request, response, next) {
 
 // Save Task
 function saveTask(request, response, next) {
+
 	var task = request.body;
+
 	if (!task.title || !(task.isDone + '') ) {
 		response.status(400);
 		response.json({ 'error': 'Bad Data' });
 	} else {
-		db.tasks.save(task, function(error, task){
+		var newTask = new Task(task);
+		newTask.save(function(error, task) {
 			if (error) {
 				response.send(error);
 				console.log(error);
@@ -82,6 +106,7 @@ function deleteTask(request, response, next) {
 function updateTask(request, response, next) {
 	var task = request.body;
 	var updTask = {};
+
 	if ( task.isDone ) {
 		updTask.isDone = task.isDone;
 	}
