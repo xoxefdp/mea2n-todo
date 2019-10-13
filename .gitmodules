@@ -1,0 +1,6 @@
+[submodule "client"]
+	path = client
+	url = git@github.com:xoxefdp/mea2n-todo-client.git
+[submodule "server"]
+	path = server
+	url = git@github.com:xoxefdp/mea2n-todo-server.git
