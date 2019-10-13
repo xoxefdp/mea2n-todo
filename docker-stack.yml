@@ -14,7 +14,7 @@ services:
 
   client:
     build:
-      context: mea2n-todo-client/.
+      context: client/.
       dockerfile: Dockerfile
     ports:
       - 4200:4200
@@ -32,7 +32,7 @@ services:
 
   server:
     build:
-      context: mea2n-todo-server/.
+      context: server/.
       dockerfile: Dockerfile
     ports:
       - 3000:3000
@@ -53,13 +53,14 @@ services:
   #for more information about adding authentication.
   database:
     build:
-      context: mongodb/.
+      context: database/.
       dockerfile: Dockerfile
     volumes:
       - ./data/db:/data/db
     ports:
       - 27017:27017
-      - 28017:28017
+      - 27018:27018
+      - 27019:27019
     networks:
       - backend-network
     deploy:
