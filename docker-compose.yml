@@ -1,0 +1,59 @@
+# Fresh build and start
+# Run docker-compose up --build
+# ... just build
+# Run docker-compose build
+# ... execute the stack
+# Run docker-compose up
+# Live long and prosper
+
+# COMPOSE NAME
+# mean-todo-app
+
+version: '2'
+services:
+
+  client:
+    build:
+      context: client/.
+      dockerfile: Dockerfile
+    ports:
+      - 4200:4200
+    depends_on:
+      - server
+    networks:
+      - frontend-network
+
+  server:
+    build:
+      context: server/.
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - database
+    links:
+      - database
+    networks:
+      - frontend-network
+      - backend-network
+
+  #No authentication is provided here - just a demo! Read the Dockerfile
+  #for more information about adding authentication.
+  database:
+    build:
+      context: database/.
+      dockerfile: Dockerfile
+    volumes:
+      - ./data/db:/data/db
+    ports:
+      - 27017:27017
+      - 27018:27018
+      - 27019:27019
+    networks:
+      - backend-network
+
+networks:
+  frontend-network:
+    driver: bridge
+  backend-network:
+    driver: bridge

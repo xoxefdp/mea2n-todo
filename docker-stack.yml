@@ -1,0 +1,86 @@
+# Fresh build and start
+# Run docker-compose up --build
+# ... just build
+# Run docker-compose build
+# ... execute the stack
+# Run docker-compose up
+# Live long and prosper
+
+# STACK NAME
+# mean-todo-app
+
+version: '3'
+services:
+
+  client:
+    build:
+      context: mea2n-todo-client/.
+      dockerfile: Dockerfile
+    ports:
+      - 4200:4200
+    depends_on:
+      - server
+    networks:
+      - frontend-network
+    deploy:
+      replicas: 3
+      resources:
+        limits:
+          memory: 100M
+      restart_policy:
+        condition: on-failure
+
+  server:
+    build:
+      context: mea2n-todo-server/.
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - database
+    networks:
+      - frontend-network
+      - backend-network
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+
+  #No authentication is provided here - just a demo! Read the Dockerfile
+  #for more information about adding authentication.
+  database:
+    build:
+      context: mongodb/.
+      dockerfile: Dockerfile
+    volumes:
+      - ./data/db:/data/db
+    ports:
+      - 27017:27017
+      - 28017:28017
+    networks:
+      - backend-network
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          memory: 100M
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        # max_attemps: 3
+        window: 60s
+
+networks:
+  frontend-network:
+    driver: overlay
+  backend-network:
+    driver: overlay
+
+# restart_policy:
+#    condition: on-failure
+#    delay: 5s
+#    max_attempts: 3
+#    window: 120s
