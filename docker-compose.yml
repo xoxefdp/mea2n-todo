@@ -12,34 +12,48 @@
 version: '2'
 services:
 
-  client:
+  client_node:
     build:
       context: client/.
       dockerfile: Dockerfile
     ports:
       - 4200:4200
     depends_on:
-      - server
+      - server_node
     networks:
       - frontend-network
+    environment:
+      - SERVER_URL=${server_node}
+      - SERVER_PORT=3000
 
-  server:
+  server_node:
     build:
       context: server/.
       dockerfile: Dockerfile
     ports:
       - 3000:3000
     depends_on:
-      - database
+      - database_node
     links:
-      - database
+      - database_node
     networks:
       - frontend-network
       - backend-network
+    environment:
+      - ENVIRONMENT=development
+      - SERVER_PORT=3000
+      - DB_DIALECT=mongo
+      - DB_HOST=database_node
+      - DB_PORT=27017
+      - DB_NAME=dbName
+      - DB_USER=dbUser
+      - DB_PASSWORD=dbPassword
+      - JWT_ENCRYPTION=PleaseChange
+      - JWT_EXPIRATION=10000
 
   #No authentication is provided here - just a demo! Read the Dockerfile
   #for more information about adding authentication.
-  database:
+  database_node:
     build:
       context: database/.
       dockerfile: Dockerfile
