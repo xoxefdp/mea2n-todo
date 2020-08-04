@@ -10,8 +10,8 @@
 # mean-todo-app
 
 version: '2'
-services:
 
+services:
   client_node:
     build:
       context: client/.
@@ -21,9 +21,9 @@ services:
     depends_on:
       - server_node
     networks:
-      - frontend-network
+      - frontend_network
     environment:
-      - SERVER_URL=${server_node}
+      - SERVER_URL=server_node
       - SERVER_PORT=3000
 
   server_node:
@@ -34,11 +34,9 @@ services:
       - 3000:3000
     depends_on:
       - database_node
-    links:
-      - database_node
     networks:
-      - frontend-network
-      - backend-network
+      - frontend_network
+      - backend_network
     environment:
       - ENVIRONMENT=development
       - SERVER_PORT=3000
@@ -51,8 +49,6 @@ services:
       - JWT_ENCRYPTION=PleaseChange
       - JWT_EXPIRATION=10000
 
-  #No authentication is provided here - just a demo! Read the Dockerfile
-  #for more information about adding authentication.
   database_node:
     build:
       context: database/.
@@ -64,10 +60,10 @@ services:
       - 27018:27018
       - 27019:27019
     networks:
-      - backend-network
+      - backend_network
 
 networks:
-  frontend-network:
+  frontend_network:
     driver: bridge
-  backend-network:
+  backend_network:
     driver: bridge
